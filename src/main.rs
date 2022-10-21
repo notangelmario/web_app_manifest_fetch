@@ -30,13 +30,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             process::exit(1)
         });
 
-    let name = data.get("name")
-        .and_then(|value| value.as_str()).unwrap_or_else(|| "No name");
-    let description = data.get("description")
-        .and_then(|value| value.as_str()).unwrap_or_else(|| "No description");
-    
+    let name = data.get("name").and_then(|value| value.as_str());
+    let description = data.get("description").and_then(|value| value.as_str());
+
     print!("\n");
-    println!("App name: {}", name);
-    println!("App description: {}", description);
+    println!("App name: {}", name.unwrap_or("No name"));
+    println!("App description: {}", description.unwrap_or("No description"));
     Ok(())
 }
