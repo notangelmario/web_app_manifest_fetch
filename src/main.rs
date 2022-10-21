@@ -32,9 +32,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let name = data.get("name").and_then(|value| value.as_str());
     let description = data.get("description").and_then(|value| value.as_str());
+    let categories = data.get("categories")
+        .and_then(|value| {
+            value.as_array()
+                .unwrap()
+                .iter()
+                .map(|val| val.as_str())
+                .collect::<Option<Vec<&str>>>()
+        });
 
     print!("\n");
     println!("App name: {}", name.unwrap_or("No name"));
     println!("App description: {}", description.unwrap_or("No description"));
+    println!("App description: {}", categories.unwrap_or(vec!["No categories"]).join(", "));
     Ok(())
 }
