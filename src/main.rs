@@ -31,6 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         });
 
     let name = data.get("name").and_then(|value| value.as_str());
+    let short_name = data.get("short_name").and_then(|value| value.as_str());
     let description = data.get("description").and_then(|value| value.as_str());
     let categories = data.get("categories")
         .and_then(|value| {
@@ -43,7 +44,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     print!("\n");
     println!("App name: {}", name.unwrap_or("No name"));
+    println!("App short name: {}", short_name.unwrap_or("No short name"));
     println!("App description: {}", description.unwrap_or("No description"));
-    println!("App description: {}", categories.unwrap_or(vec!["No categories"]).join(", "));
+    println!("App categories: {}", categories.unwrap_or(vec!["No categories"]).join(", "));
     Ok(())
 }
